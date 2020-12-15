@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class TestConnection {
@@ -23,6 +24,11 @@ public class TestConnection {
                     property.getProperty("db.login"),
                     property.getProperty("db.password")
             );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try(Statement statement = connectionJDBC.createStatement()) {
+            statement.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace();
         }
