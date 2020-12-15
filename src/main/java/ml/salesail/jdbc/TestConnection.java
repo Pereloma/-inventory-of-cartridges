@@ -26,8 +26,14 @@ public class TestConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        executeSQLRequestFromFile("src/main/resources/sql/CreateTableHospital.sql");
+        executeSQLRequestFromFile("src/main/resources/sql/CreateTableCartridges.sql");
+
+
+    }
+    private static boolean executeSQLRequestFromFile (String sqlFile){
         try(Statement statement = connectionJDBC.createStatement();
-            BufferedReader bufferedReader = new BufferedReader( new FileReader("src/main/resources/sql/CreateTableCartridges.sql"));) {
+            BufferedReader bufferedReader = new BufferedReader( new FileReader(sqlFile))) {
             StringBuilder sql = new StringBuilder();
             while (bufferedReader.ready()){
                 sql.append(bufferedReader.readLine());
@@ -35,6 +41,8 @@ public class TestConnection {
             statement.executeUpdate(sql.toString());
         } catch (SQLException | IOException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 }
