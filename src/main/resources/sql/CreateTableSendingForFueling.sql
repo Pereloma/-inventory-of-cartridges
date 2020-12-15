@@ -1,3 +1,4 @@
-CREATE TABLE IF NOT EXISTS SendingForFueling(
+CREATE TABLE IF NOT EXISTS SendingForFueling
+(
     id         integer PRIMARY KEY
 )
