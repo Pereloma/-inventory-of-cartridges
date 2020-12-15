@@ -1,7 +1,6 @@
 package ml.salesail.jdbc;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,11 +26,15 @@ public class TestConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try(Statement statement = connectionJDBC.createStatement()) {
-            statement.executeUpdate()
-        } catch (SQLException e) {
+        try(Statement statement = connectionJDBC.createStatement();
+            BufferedReader bufferedReader = new BufferedReader( new FileReader("src/main/resources/sql/CreateTableCartridges.sql"));) {
+            StringBuilder sql = new StringBuilder();
+            while (bufferedReader.ready()){
+                sql.append(bufferedReader.readLine());
+            }
+            statement.executeUpdate(sql.toString());
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
-
 }
