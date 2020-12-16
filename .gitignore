@@ -1,3 +1,4 @@
 /.idea/
 /src/main/resources/JDBC.properties
 /target/
+/src/main/resources/sql/test.sql
