@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Hospital
 (
-    id           integer PRIMARY KEY,
+    id           serial PRIMARY KEY,
     abbreviation text,
     name         text,
     address      text,
