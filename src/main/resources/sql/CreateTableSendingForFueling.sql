@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS SendingForFueling
     date_of_receipt date,
     status          serial REFERENCES Status (id),
     refills_status  integer,
-    cartridges      integer REFERENCES Cartridges (id)
+    cartridges      serial REFERENCES Cartridges (id)
 )
