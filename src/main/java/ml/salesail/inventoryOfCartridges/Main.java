@@ -1,4 +1,6 @@
-package ml.salesail.jdbc;
+package ml.salesail.inventoryOfCartridges;
+
+import ml.salesail.inventoryOfCartridges.jdbc.JDBCHelper;
 
 public class Main {
     public static void main(String[] args) {

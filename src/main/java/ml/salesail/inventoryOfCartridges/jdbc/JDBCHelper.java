@@ -1,13 +1,10 @@
-package ml.salesail.jdbc;
+package ml.salesail.inventoryOfCartridges.jdbc;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class JDBCHelper {
@@ -71,5 +68,46 @@ public class JDBCHelper {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ResultSet getResultSet(String sqlFile){
+        try(Statement statement = connectionJDBC.createStatement();
+            BufferedReader bufferedReader = new BufferedReader( new FileReader(sqlFile))) {
+            StringBuilder sql = new StringBuilder();
+            while (bufferedReader.ready()){
+                sql.append(bufferedReader.readLine());
+            }
+            return statement.executeQuery(sql.toString());
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String ResultSetToHTMLTable(ResultSet resultSet){
+        StringBuilder result = new StringBuilder();
+        try {
+            result.append("<table>\n");
+            while (resultSet.next()){
+                result.append("<tr>");
+                for (int i = 1; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    result.append("<th>");
+                    result.append(resultSet.getString(i));
+                    result.append("</th>");
+                }
+                result.append("</tr>\n");
+            }
+            result.append("</table>");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+        return result.toString();
+    }
+
+    public String getHTMLTable(String sqlFile){
+        return ResultSetToHTMLTable(getResultSet(sqlFile));
     }
 }

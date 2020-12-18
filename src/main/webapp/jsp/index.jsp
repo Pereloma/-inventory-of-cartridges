@@ -11,6 +11,9 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <%@ include file = "fragment/topMenu.jsp" %>
+  <%@ include file = "fragment/tableOfAllCartridges.jsp" %>
+
+
   </body>
 </html>
